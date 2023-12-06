@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Goutte\Client;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
 
