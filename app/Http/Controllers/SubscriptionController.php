@@ -23,6 +23,7 @@ class SubscriptionController extends Controller
         $userId = $this->userService->isUserExist($subscriptionRequest->validated()['email']);
         $propertyId = $this->propertyService->isPropertyExist($subscriptionRequest->validated()['url']);
 
-        $this->subscriptionService->isSubscriptionExists($userId, $propertyId);
+
+        return $this->subscriptionService->isSubscriptionExists($userId, $propertyId);
     }
 }

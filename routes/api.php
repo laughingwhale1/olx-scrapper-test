@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\SubscriptionController;
+use App\Mail\PriceChangedMail;
+use App\Models\Property;
+use App\Models\User;
+use App\Services\PropertyService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +20,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/page', function () {
-    $crawler = Goutte::request('GET', 'https://www.olx.ua/d/uk/obyavlenie/kolyaska-geoby-IDT60zC.html');
-    $priceText = $crawler->filter('h3.css-12vqlj3')->text();
-    $price = preg_replace('/[^0-9]/', '', $priceText);
+Route::post('/send-email', function () {
+//   $res = Mail::to('luckypalm95@gmail.com')->send(new PriceChangedMail('10', '20'));
+});
 
-    return $price;
+Route::get('/users', function () {
+    $users = \Illuminate\Support\Facades\DB::table('users')
+        ->join('property_user', 'users.id', '=', 'property_user.user_id')
+        ->where('property_user.property_id', 29)
+        ->select('users.*')
+        ->get();
+    dd($users);
 });
 
 Route::post('/create-subscription', [SubscriptionController::class, 'handleNewSubscription']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});

@@ -11,6 +11,7 @@ class Property extends Model
 
     protected $fillable = [
         'url',
+        'price'
     ];
 
     public function users()

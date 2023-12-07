@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SubscriptionService
 {
@@ -14,12 +15,14 @@ class SubscriptionService
             ->exists();
 
         if ($exists) {
-            dd('exists', $exists);
+            Log::info('exists');
+            return response(['message' => 'subscription already exists'], 400);
         } else {
             /** @var User $user */
             $user = User::query()->find($userId);
             $user->properties()->attach($propertyId);
-            dd('not exists, created', $exists);
+            Log::info('not exists, created');
+            return response(['message' => 'subscription created'], 201);
         }
     }
 }

@@ -3,15 +3,17 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class UserService
 {
     public function isUserExist (string $email) {
         try {
-            $user = User::query()->where('email', '=', $email)->first();
+
+            $user = User::query()->where('email', $email)->first();
 
             if ($user) {
-                return $user->value('id');
+                return $user->id;
             }
 
             return $this->createUser($email);
@@ -23,7 +25,8 @@ class UserService
 
     public function createUser (string $email) {
         try {
-            return User::query()->create(['email' => $email, 'name' => 'random', 'password' => 'random'])->value('id');
+            $user = User::query()->create(['email' => $email]);
+            return $user->id;
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
