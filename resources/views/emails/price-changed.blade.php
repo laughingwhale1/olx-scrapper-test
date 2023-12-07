@@ -4,6 +4,6 @@
     <title>Price changed</title>
 </head>
 <body>
-<p>Price changed from {{ $oldPrice }} to {{ $newPrice }}</p>
+<p>Price changed to {{ $newPrice }}</p>
 </body>
 </html>

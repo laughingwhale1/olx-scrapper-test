@@ -17,7 +17,6 @@ class PriceChangedMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        private string $oldPrice,
         private string $newPrice
     )
     {
@@ -42,7 +41,6 @@ class PriceChangedMail extends Mailable
         return new Content(
             html: 'emails.price-changed',
             with: [
-                'oldPrice' => $this->oldPrice,
                 'newPrice' => $this->newPrice,
             ]
         );

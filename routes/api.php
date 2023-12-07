@@ -20,18 +20,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/send-email', function () {
-//   $res = Mail::to('luckypalm95@gmail.com')->send(new PriceChangedMail('10', '20'));
-});
-
-Route::get('/users', function () {
-    $users = \Illuminate\Support\Facades\DB::table('users')
-        ->join('property_user', 'users.id', '=', 'property_user.user_id')
-        ->where('property_user.property_id', 29)
-        ->select('users.*')
-        ->get();
-    dd($users);
-});
-
 Route::post('/create-subscription', [SubscriptionController::class, 'handleNewSubscription']);
 
