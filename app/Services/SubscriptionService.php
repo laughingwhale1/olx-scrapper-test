@@ -17,12 +17,12 @@ class SubscriptionService
         if ($exists) {
             Log::info('exists');
             return response(['message' => 'subscription already exists'], 400);
-        } else {
-            /** @var User $user */
-            $user = User::query()->find($userId);
-            $user->properties()->attach($propertyId);
-            Log::info('not exists, created');
-            return response(['message' => 'subscription created'], 201);
         }
+
+        /** @var User $user */
+        $user = User::query()->find($userId);
+        $user->properties()->attach($propertyId);
+        Log::info('not exists, created');
+        return response(['message' => 'subscription created'], 201);
     }
 }

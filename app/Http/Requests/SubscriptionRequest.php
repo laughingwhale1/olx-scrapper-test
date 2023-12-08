@@ -9,7 +9,7 @@ class SubscriptionRequest extends FormRequest
     public function rules (): array {
         return [
             'email' => 'required|email',
-            'url' => 'required|string',
+            'url' => 'required|string|url:https',
         ];
     }
 }

@@ -19,7 +19,6 @@ class PriceChangeEmailSend implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $timeout = 120;
-    public $tries = 0;
     protected $email;
     protected $price;
 
