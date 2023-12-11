@@ -37,9 +37,17 @@ class ParsePage implements ShouldQueue
     {
         try {
             $crawler = Goutte::request('GET', $this->url);
-            $priceText = $crawler->filter('div[data-testid="ad-price-container"] h3.css-12vqlj3')->text();
+            $priceNodes = $crawler->filter('div[data-testid="ad-price-container"] h3.css-12vqlj3');
+
+            if ($priceNodes->count() == 0) {
+                Log::info("No price element found on property: {$this->url}");
+                return; // here we can also delete property and relationship and notify user about it
+            }
+
+            $priceText = $priceNodes->text();
             $price = preg_replace('/[^0-9]/', '', $priceText);
             Log::info("Fetched price: {$price}, on property: {$this->url}");
+
             if ($price) {
                 $propertyService = new PropertyService();
                 $propertyService->updatePropertyPrice($price, $this->url);
