@@ -8,7 +8,25 @@ use Illuminate\Support\Facades\Log;
 
 class SubscriptionService
 {
-    public function isSubscriptionExists (int $userId, int $propertyId) {
+
+    public function __construct(
+        private UserService     $userService,
+        private PropertyService $propertyService
+    )
+    {
+
+    }
+
+    public function handleNewSubscription($subscription)
+    {
+        $userId = $this->userService->isUserExist($subscription['email']);
+        $propertyId = $this->propertyService->isPropertyExist($subscription['url']);
+
+        return $this->isSubscriptionExists($userId, $propertyId);
+    }
+
+    public function isSubscriptionExists(int $userId, int $propertyId)
+    {
         $exists = DB::table('property_user')
             ->where('user_id', $userId)
             ->where('property_id', $propertyId)

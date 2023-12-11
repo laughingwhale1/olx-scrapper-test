@@ -11,19 +11,12 @@ use Illuminate\Http\Request;
 class SubscriptionController extends Controller
 {
     public function __construct(
-        private UserService $userService,
-        private PropertyService $propertyService,
         private SubscriptionService $subscriptionService,
     )
     {
     }
 
     public function handleNewSubscription (SubscriptionRequest $subscriptionRequest) {
-
-        $userId = $this->userService->isUserExist($subscriptionRequest->validated()['email']);
-        $propertyId = $this->propertyService->isPropertyExist($subscriptionRequest->validated()['url']);
-
-
-        return $this->subscriptionService->isSubscriptionExists($userId, $propertyId);
+        return $this->subscriptionService->handleNewSubscription($subscriptionRequest->validated());
     }
 }

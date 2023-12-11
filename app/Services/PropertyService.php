@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Log;
 
 class PropertyService
 {
-
-    public function __construct(private EmailService $emailService)
+    private $emailService;
+    public function __construct()
     {
+        $this->emailService = app(EmailService::class);
     }
 
     public function isPropertyExist (string $url) {
