@@ -35,7 +35,7 @@ class ParsePage implements ShouldQueue
     {
         try {
             $crawler = Goutte::request('GET', $this->url);
-            $priceText = $crawler->filter('h3.css-12vqlj3')->text();
+            $priceText = $crawler->filter('div[data-testid="ad-price-container"] h3.css-12vqlj3')->text();
             $price = preg_replace('/[^0-9]/', '', $priceText);
             Log::info("Fetched price: {$price}, on property: {$this->url}");
             if ($price) {
