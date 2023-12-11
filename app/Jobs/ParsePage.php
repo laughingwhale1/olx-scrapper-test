@@ -28,9 +28,11 @@ class ParsePage implements ShouldQueue
         $this->url = $url;
     }
 
-    /**
-     * Execute the job.
-     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
     public function handle(): void
     {
         try {

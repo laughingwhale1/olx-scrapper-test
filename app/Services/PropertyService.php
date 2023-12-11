@@ -30,7 +30,7 @@ class PropertyService
         }
     }
 
-    private function createProperty (string $url) {
+    public function createProperty (string $url) {
         try {
             $property = Property::query()->create(['url' => $url]);
 
@@ -54,7 +54,7 @@ class PropertyService
                 $property = Property::query()->where('url', $url)->first();
                 $property->update(['price' => $fetchedPrice]);
                 $property->save();
-                Cache::put($url, $fetchedPrice, $seconds = 7200);
+                Cache::put($url, $fetchedPrice, $seconds = 1200);
                 $this->emailService->sendEmails($property->id, $property->price);
             }
             return;
@@ -71,6 +71,5 @@ class PropertyService
             }
         }
     }
-
 
 }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class UserService
 {
@@ -19,7 +20,7 @@ class UserService
             return $this->createUser($email);
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error($e->getMessage());
         }
     }
 
@@ -28,7 +29,7 @@ class UserService
             $user = User::query()->create(['email' => $email]);
             return $user->id;
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error($e->getMessage());
         }
     }
 }
