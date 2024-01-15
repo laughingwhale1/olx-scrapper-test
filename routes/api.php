@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::post('/create-subscription', [SubscriptionController::class, 'handleNewSubscription']);
 
